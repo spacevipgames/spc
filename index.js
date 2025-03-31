@@ -1,11 +1,9 @@
 const express = require('express');
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 10000;
 
-// Servindo arquivos estáticos (se você quiser usar arquivos HTML, CSS, JS)
 app.use(express.static('public'));
 
-// Rota principal - Página inicial com botão de download
 app.get('/', (req, res) => {
   res.send(`
     <html>
@@ -66,8 +64,8 @@ app.get('/', (req, res) => {
   `);
 });
 
-// Rota para o download
 app.get('/download', (req, res) => {
+  // URL do arquivo a ser baixado (ajustar conforme o arquivo)
   const fileUrl = "https://dn720202.ca.archive.org/0/items/sony_playstation3_b_part1/Back%20to%20the%20Future%20-%20The%20Game%20%28Europe%29%20%28En%2CFr%2CDe%29.iso";
   const cookies = "donation-identifier=cf2df63433c94029107b4d8c98de722b; "
                 + "view-search=tiles; showdetails-search=; "
@@ -78,19 +76,14 @@ app.get('/download', (req, res) => {
 
   const filename = "Back_to_the_Future_The_Game_Europe.iso";
 
-  // Definindo cabeçalhos para o download
   res.setHeader("Content-Type", "application/octet-stream");
   res.setHeader("Content-Disposition", `attachment; filename="${filename}"`);
   res.setHeader("Connection", "keep-alive");
 
-  // Enviando comando de download direto para o PS3
-  const downloadCommand = `http://localhost/popup.ps3/Iniciando%20Download!;/wait.ps3?3;/xmb.ps3/download.ps3?to=/dev_hdd0/PS3ISO&url=${fileUrl}`;
-
-  // Redirecionando para o comando de download
-  res.redirect(downloadCommand);
+  // Usar a URL direta para enviar o arquivo
+  res.redirect(fileUrl); // Redireciona diretamente para o arquivo
 });
 
-// Iniciando o servidor
 app.listen(port, () => {
   console.log(`Servidor rodando na porta ${port}`);
 });
