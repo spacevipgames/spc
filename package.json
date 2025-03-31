@@ -1,0 +1,16 @@
+{
+  "name": "ps3-download",
+  "version": "1.0.0",
+  "description": "Servidor Node.js para download no PS3",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "vercel dev"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "engines": {
+    "node": "16.x"
+  }
+}
